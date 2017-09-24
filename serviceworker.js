@@ -25,9 +25,9 @@ self.addEventListener('push', function(event) {
   console.log('[Service Worker] Push Received.');
   console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
-  const title = 'Push Codelab';
+  const title = 'Tracknodes Notification';
   const options = {
-    body: 'Yay it works.',
+    body: 'CSCI 103 Midterm on Friday!',
     icon: 'images/icon.png',
     badge: 'images/badge.png'
   };
