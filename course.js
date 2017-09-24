@@ -57,7 +57,7 @@ app.post('/data', function(req, res) {
 	res.writeHead(200, { 'Content-Type': 'text/html' });
 	res.write(
 	"<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css' integrity='sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M' crossorigin='anonymous'></head><body>" + 
-	"<div class='jumbotron jumbotron-fluid' style='padding-top: 0px;'>" +
+	"<div class='jumbotron jumbotron-fluid' style='padding-top: 0px; text-align: center;'>" +
 	"<div class='card' style='width: 50rem; margin: auto; margin-top: 0px;'><div class='card-body'>" +
     "<h1 class='card-title'><b>Course Card</b></h1>" + 
     "<p class='card-text'>" +
