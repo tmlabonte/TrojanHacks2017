@@ -8,7 +8,6 @@ var app = express();
 var router = express.Router();
 var port = 8080;
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -32,6 +31,7 @@ app.post('/data', function(req, res) {
 			var $ = cheerio.load(body);
 		
 			var sectionId = $("." + courseSection);
+			//var nameCourse = sectionId.parent("id")
 			var sectionText = sectionId.children(".section").text();
 			var professorText = sectionId.children(".instructor").text();
 			var dayText = sectionId.children(".days").text();
@@ -54,7 +54,54 @@ app.post('/data', function(req, res) {
 			console.log(course);
 		
 	}
-	res.end(JSON.stringify(course));
+	res.writeHead(200, { 'Content-Type': 'text/html' });
+	res.write(
+	"<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css' integrity='sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M' crossorigin='anonymous'></head><body>" + 
+	"<div class='jumbotron jumbotron-fluid'>" +
+	"<div class='card' style='width: 20rem;'><div class='card-body'>" +
+    "<h1 class='card-title'>Course Card</h1>" + 
+    "<p class='card-text'>" +
+    "<ul class='list-group list-group-flush'>" +
+    "<li class='list-group-item'>" +
+	"<h3>Section: " + 
+	JSON.stringify(course.section) +
+	"</h3></li>" + 
+	"<li class='list-group-item'>" +
+	"<h3>Professor: " + 
+	JSON.stringify(course.professor) +
+	"</h3></li>" + 
+	"<li class='list-group-item'>" +
+	"<h3>Days: " + 
+	JSON.stringify(course.days) +
+	"</h3></li>" + 
+	"<li class='list-group-item'>" +
+	"<h3>Time: " + 
+	JSON.stringify(course.time) +
+	"</h3></li>" + 
+	"<li class='list-group-item'>" +
+	"<h3>Type: " + 
+	JSON.stringify(course.type) +
+	"</h3></li>" + 
+	"<li class='list-group-item'>" +
+	"<h3>Location: " + 
+	JSON.stringify(course.location) +
+	"</h3></li>" + 
+	"<a href='#'><h4>Add more to your feed</h4></a></body>" +
+	"<form><div class='form-group'>" +
+	"<h3>Add Homework</h3>" +
+    "<label class='form-control-label' for='hwName'>Homework Name</label>" +
+    "<input type='text' class='form-control' id='hwName' placeholder='e.g. Case Memo #2'>" +
+    "</div>" +
+  	"<div class='form-group'>" +
+    "<label class='form-control-label' for='dueDate'>Due Date</label>" +
+    "<input type='text' class='form-control' id='dueDate' placeholder='e.g. 09/24/17'>" +
+    "</div>" +
+    "<div class='col-auto'><div class='form-check mb-2 mb-sm-0'><label class='form-check-label'><input class='form-check-input' type='checkbox'> Notify me please! </label></div></div>" +
+	"<div class='col-auto'><button type='submit' class='btn btn-primary'>Submit</button></div>" +
+	"</form>" +
+	"</p></div></div></div>"
+	);
+	res.end();
 });
 });
 

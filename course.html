@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>USCalendar Dashboard</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">	
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  		<a class="navbar-brand" href="#">USCalendar</a>
+  			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    			<span class="navbar-toggler-icon"></span>
+  			</button>
+
+  		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    		<ul class="navbar-nav mr-auto">
+     			<li class="nav-item active">
+        			<a class="nav-link" href="#">Courses<span class="sr-only">(current)</span></a>
+      			</li>
+      			<li class="nav-item">
+        			<a class="nav-link" href="#">Events</a>
+     			</li>
+      			<li class="nav-item">
+        			<a class="nav-link" href="#">Notifications</a>
+      			</li>
+    		</ul>
+  		</div>
+	</nav>
+	<!--
+	<div class="form-group">
+    	<label for="numberOfCourses">Total number of courses (Lectures, Discussions, Labs)</label>
+    	<select class="form-control" id="numberOfCourses">
+      		<option>1</option>
+      		<option>2</option>
+      		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+      		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+    	</select>
+  	</div>
+	-->
+	<form id="courseForm" class="form-inline my-2 my-lg-0" action="http://localhost:8080/data" method="POST">
+      	<ol>
+      	<li>
+      	<input name="prefix" class="form-control mr-sm-2" type="text" placeholder="Course Prefix (e.g.'BUAD')" aria-label="Course Prefix">
+      	<input name="section" class="form-control mr-sm-2" type="text" placeholder="Section (e.g.'13474')" aria-label="Course Section">
+      	</li>
+      	</ol>
+      	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <!-- the result of the search will be rendered inside this div -->
+	<div id="result"></div>
+ 	
+
+	<!-- Scripts -->
+	<!--
+	<script>
+		var numCourse = $('#numberOfCourses').val();
+		for (var i = 0; i < numCourse; i++) {
+			document.createElement("");
+		}
+	</script>
+	<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+	<script>
+  		// Initialize Firebase
+  		var config = {
+    		apiKey: "AIzaSyAOkSoUOW8ZQLv8ZEzGOTOMAhs35el8A3w",
+    		authDomain: "trojanhacks2017.firebaseapp.com",
+    		databaseURL: "https://trojanhacks2017.firebaseio.com",
+    		projectId: "trojanhacks2017",
+    		storageBucket: "trojanhacks2017.appspot.com",
+    		messagingSenderId: "1058125945353"
+  		};
+  		firebase.initializeApp(config);
+	</script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+	-->
+	<!--
+	<script>
+		$("#courseForm").on('submit', function() {
+			var courseQuery = $(this),
+				url = courseQuery.attr('action'),
+				type = courseQuery.attr('method'),
+				data = {};
+			
+			courseQuery.find('[name]').each(function(index, value) {
+				var dataField = $(this),
+					name = dataField.attr('name'),
+					value = dataField.val();
+					
+				data[name] = value;			
+			});
+			
+			$.ajax({
+				type: type,
+				url: url,
+				data: data,
+				success: function(response) {
+					document.getElementById("result").innerHTML = response;
+				}
+			});
+			
+			return false;
+		});
+
+		/*
+		function _(id){ return document.getElementById(id); }
+		function submitForm(){
+			_("findCourse").disabled = true;
+			_("status").innerHTML = 'please wait ...';
+			var formdata = new FormData();
+			formdata.append( "prefix", _("prefix").value );
+			formdata.append( "section", _("section").value );
+			var ajax = new XMLHttpRequest();
+			ajax.open( "POST", "http://localhost:8080/data", true );
+			ajax.onreadystatechange = function() {
+				if(ajax.readyState == 4 && ajax.status == 200) {
+					if(ajax.responseText == "success"){
+						_("status").innerHTML = '<h2>Course found!</h2>' + ajax.responseText;
+					} else {
+						_("status").innerHTML = "<h2>Failed...</h2>";
+						_("findCourse").disabled = false;
+					}
+				}
+			}
+			ajax.send(formdata);
+		}
+    	*/
+	</script>
+	-->
+</body>
+</html>
