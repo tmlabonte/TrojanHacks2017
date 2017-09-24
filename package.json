@@ -1,0 +1,27 @@
+{
+  "name": "trojanhacks2017",
+  "version": "1.0.0",
+  "description": "scrapes usc webpage for professor and class details",
+  "main": "course.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmlabonte/TrojanHacks2017.git"
+  },
+  "author": "jeff chen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tmlabonte/TrojanHacks2017/issues"
+  },
+  "homepage": "https://github.com/tmlabonte/TrojanHacks2017#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.15.4",
+    "handlebars": "^4.0.10",
+    "path": "^0.12.7",
+    "request": "^2.82.0"
+  }
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tracknodes Login</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .landing {
+            background: url("images/UI/LandingPage-2.jpg") no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        #go {
+            background: #990000;
+            position: absolute;
+            left: 80.3%;
+            top: 57%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 1em;
+            height: 3em;
+            width: 29em;
+            font-family: Helvetica;
+        }
+
+        #register {
+            background: #FFCC00;
+            position: absolute;
+            left: 89.4%;
+            top: 94.5%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 1em;
+            height: 4em;
+            width: 14.5em;
+            font-family: Garamond;
+            font-weight: 700;
+        }
+
+        #email {
+            display: block;
+            position: absolute;
+            left: 80.25%;
+            top: 31%;
+            transform: translate(-50%, -50%);
+        }
+
+        input[type=text] {
+            padding: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="landing">
+        <div>
+            <form id="email">
+                <input type="text" name="email" size= "57" placeholder="USC Email Address"><br>
+            </form>
+        </div>
+        <a href="https://tmlabonte.github.io/TrojanHacks2017/feed.html">
+            <button id="go">
+                Go!
+            </button>
+        </a>s
+        <a href="https://tmlabonte.github.io/TrojanHacks2017/register.html">
+            <button id="register">
+                Register
+            </button>
+        </a>
+    </div>
+</body>
+<script>
+/*function checkIfFilled() {
+    var emailCheck = document.getElementById('email').value;
+    if (emailCheck.endsWith("@usc.edu")) {
+        window.location.href = "https://tmlabonte.github.io/TrojanHacks2017/feed.html";
+    } else {
+        window.location.href = "https://tmlabonte.github.io/TrojanHacks2017/login.html";
+    }
+}*/
+</script>
+</html>
