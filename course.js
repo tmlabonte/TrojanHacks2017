@@ -6,12 +6,23 @@ var bodyParser = require("body-parser");
 var fs = require("fs");
 var app = express();
 var router = express.Router();
-var admin = require("firebase-admin");
-var serviceAccount = require("path/to/serviceAccountKey.json");
 
+var admin = require("firebase-admin");
+
+// Fetch the service account key JSON file contents
+var serviceAccount = require("./trojanhacks2017-firebase-adminsdk-1p9lw-99acceab02.json");
+
+// Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://<DATABASE_NAME>.firebaseio.com"
+  databaseURL: "https://trojanhacks2017.firebaseio.com/"
+});
+
+// As an admin, the app has access to read and write all data, regardless of Security Rules
+var db = admin.database();
+var ref = db.ref("restricted_access/secret_document");
+ref.once("value", function(snapshot) {
+  console.log(snapshot.val());
 });
 
 var port = 8080;
@@ -59,6 +70,12 @@ app.post('/data', function(req, res) {
 				type: typeText,
 				location: locationText
 			};
+			
+			var usersRef = ref.child("userCourse");
+				usersRef.set({
+  				user1: course
+			});
+			
 			console.log(course);
 		
 	}
@@ -105,7 +122,7 @@ app.post('/data', function(req, res) {
     "<input type='text' class='form-control' id='dueDate' placeholder='e.g. 09/24/17'>" +
     "</div>" +
     "<div class='col-auto'><div class='form-check mb-2 mb-sm-0'><label class='form-check-label'><input class='form-check-input' type='checkbox'> Notify me please! </label></div></div>" +
-	"<div class='col-auto'><button type='submit' class='btn btn-primary'>Submit</button></div>" +
+	"<div class='col-auto'><button type='submit' class='btn btn-primary'><a href='https://tmlabonte.github.io/TrojanHacks2017/feed.html'>Submit</a></button></div>" +
 	"</form>" +
 	"</p></div></div></div>"
 	);

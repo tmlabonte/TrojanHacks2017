@@ -56,11 +56,10 @@
 			height: 100vh;
 			z-index: 0;
 		}
- 
+
 		.node{
-      background: linear-gradient(#990000, #FFCC00); 
+      background: linear-gradient(#990000, #FFCC00);;
 			color: #FFFFFF;
-      font-family: Helvetica; 
 			border-top: 2px solid #d6d8d8;
 			margin: 10px;
 			margin-right: -2px;
@@ -267,7 +266,10 @@
       <h2>Nothing due</h2>
     </div>
 	</div>
-
+	
+	<div id="result">
+	</div>
+	
   <!-- The Modal -->
   <div id="notiMod" class="modal">
 
@@ -334,7 +336,29 @@
 	</footer>
 
 	<!-- Scripts -->
+	<!--
+	<script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+	<script>
+  	// Initialize Firebase
+  	var config = {
+    	apiKey: "AIzaSyAOkSoUOW8ZQLv8ZEzGOTOMAhs35el8A3w",
+    	authDomain: "trojanhacks2017.firebaseapp.com",
+   		databaseURL: "https://trojanhacks2017.firebaseio.com",
+    	projectId: "trojanhacks2017",
+    	storageBucket: "trojanhacks2017.appspot.com",
+    	messagingSenderId: "1058125945353"
+  	};
+  	firebase.initializeApp(config);
+  
+  	var database = firebase.database();
+  	var course = database.ref("restricted_access/secret_document");
+	course.once("value", function(snapshot) {
+  		document.getElementById("result").innerHTML = snapshot.val();
+  		console.log(snapshot.val());
+	});
 
+	</script>
+	-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script>
     // Get the modal
