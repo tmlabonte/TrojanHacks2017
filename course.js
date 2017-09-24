@@ -86,7 +86,7 @@ app.post('/data', function(req, res) {
 	"<h3>Location: " + 
 	JSON.stringify(course.location) +
 	"</h3></li>" + 
-	"<a href='#'><h4>Add more to your feed</h4></a></body>" +
+	"<a href='https://tmlabonte.github.io/TrojanHacks2017/course.html'><h4>Add more to your feed</h4></a></body>" +
 	"<form><div class='form-group'>" +
 	"<h3>Add Homework</h3>" +
     "<label class='form-control-label' for='hwName'>Homework Name</label>" +
