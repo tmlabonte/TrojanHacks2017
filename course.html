@@ -2,136 +2,376 @@
 <html>
 <head>
 	<title>USCalendar Dashboard</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">	
+	<style>
+		body{
+			margin: 0px; 
+			padding: 0px;
+			background-color: #edeff0;
+			font-family: "hack";
+		}
+
+		#sidebar{
+			background: #151718;
+			width: 200px;
+			height: 100%; 
+			display: block;
+			position: absolute;
+			left: -200px;
+			top: 0px;
+			transition: left 0.3s linear;
+			z-index: 2;
+		}
+
+		#vertical-div{
+			width: 200px;
+			height: 100%;
+			top: 0px;
+			position: absolute;
+			text-align: center;
+			box-shadow: 2px 2px 5px #A5A5A5;
+			z-index: 1;
+      background-color: #990000;
+      background: linear-gradient(#990000, #FFCC00);
+		}
+
+		#vertical-div img{
+			margin-top: 150px;
+			opacity: 0.7;
+		}
+
+		#vertical-div h2{
+			font-size: 18px;
+			padding-right: 20px;
+			padding-left: 20px;
+			margin-top: -20px;
+			color: #b8b8b8;
+			opacity: 0.7;
+		}
+
+		#node-div{
+			float: right;
+			background-color: #F5F5F5;
+			padding: 30px;
+			width: 80%;
+			height: 100vh;
+			z-index: 0;
+		}
+
+		.node{
+			background-color: white;
+			color: #94a2a4;
+			border-top: 2px solid #d6d8d8;
+			margin: 10px;
+			margin-right: -2px;
+			margin-left: -2px;
+			padding: 30px;
+			height: 200px;
+		}
+
+		#sidebar.visible{
+			left: 0px;
+			transition: left 0.3s linear;
+		}
+
+		#sidebar-btn{
+			display: inline-block;
+			vertical-align: middle;
+			width: 20px;
+			height: 15px;
+			cursor: pointer;
+			margin: 20px;
+			position: absolute;
+			top: 0px;
+			right: -60px;
+		}
+
+		#sidebar-btn span{
+			height: 2px;
+			background-color: #111;
+			margin-bottom: 5px;
+			display: block;
+		}
+
+		#sidebar-btn span:nth-child(1){
+			margin-top: -7px;
+		}
+
+		#sidebar-btn span:nth-child(2){
+			width: 75%;
+		}
+
+		#sidebar-btn span:nth-child(3){
+			width: 50%;
+		}
+
+		#button-notification{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+		}
+
+		.vertical-menu{
+			margin: 0px;
+			padding: 0px;
+		}
+
+		.vertical-menu-item{ 
+			list-style: none;
+		}
+
+		ul li a.vertical-anchor{
+			background-color: #1C1E1F; 
+			color: #ccc;
+			border-bottom: 1px solid #111;
+			display: block;
+			width: 180px;
+			padding: 10px;
+			text-decoration: none;
+			padding-top: 20px;
+			padding-bottom: 28px;
+			text-align: center;
+		}
+
+		ul li a.vertical-anchor:hover{
+			background-color: #F5F5F5;
+			color: #1C1E1F;
+			transition: 0.3s;
+		}
+
+		#footer-division{
+			width: 100%;
+			height: 150;
+			padding: 10px;
+			position: fixed;
+			display: block;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			color: #8c9aa4;
+			background-color: #edeff0;
+			text-align: center;
+			z-index: 3;
+		}
+
+		#footer-division li{
+			font-size: 11px;
+			padding: 2px;
+			list-style: none;
+			opacity: 0.9;
+		}
+
+		#footer-division li a{
+			color: #757575;
+			text-decoration: none;
+			text-align: center;
+		}
+
+		footer h3{
+			float: left;
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+
+		.row{
+			height: auto;
+			overflow: auto;
+		}
+
+		.col{
+			float: left;
+			text-align: left;
+			width: 25%;
+		}
+
+		#div-line{
+			background-color: #8c9aa4;
+			opacity: 0.5;
+			height: 2px;
+			width: 100%;
+		}
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: absolute;
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 50%; /* Full width */
+        height: 50%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+	</style>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  		<a class="navbar-brand" href="#">USCalendar</a>
-  			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    			<span class="navbar-toggler-icon"></span>
-  			</button>
+	<div id="sidebar">
+		<nav>
+			<ul class="vertical-menu">
+				<li class="vertical-menu-item"><a class="vertical-anchor" href="#">Logo</a></li>
+				<li class="vertical-menu-item"><a class="vertical-anchor" href="feed.html">Home</a></li>
+				<li class="vertical-menu-item"><a class="vertical-anchor" href="course.html">Add</a></li>
+				<li class="vertical-menu-item"><a class="vertical-anchor" id="noti" href="#">Notification</a></li>
+				<li class="vertical-menu-item"><a class="vertical-anchor" href="https://www.pexels.com/search/cat/">Cats</a></li>
+				<li class="vertical-menu-item"><a class="vertical-anchor" href="mailto:tlabonte@usc.edu">Contact</a></li>
+				<li class="vertical-menu-item"><a class="vertical-anchor" href="#">About</a></li>
+			</ul>
+		</nav>
+		<div id="sidebar-btn">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
 
-  		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-    		<ul class="navbar-nav mr-auto">
-     			<li class="nav-item active">
-        			<a class="nav-link" href="#">Courses<span class="sr-only">(current)</span></a>
-      			</li>
-      			<li class="nav-item">
-        			<a class="nav-link" href="#">Events</a>
-     			</li>
-      			<li class="nav-item">
-        			<a class="nav-link" href="#">Notifications</a>
-      			</li>
-    		</ul>
-  		</div>
-	</nav>
-	<!--
-	<div class="form-group">
-    	<label for="numberOfCourses">Total number of courses (Lectures, Discussions, Labs)</label>
-    	<select class="form-control" id="numberOfCourses">
-      		<option>1</option>
-      		<option>2</option>
-      		<option>3</option>
-      		<option>4</option>
-      		<option>5</option>
-      		<option>6</option>
-      		<option>7</option>
-      		<option>8</option>
-      		<option>9</option>
-      		<option>10</option>
-    	</select>
-  	</div>
-	-->
+	<!-- Vertical div behind the sliding menu -->
+	<div id="vertical-div">
+<!-- 		<img src="/Users/mauriciofigueiredomattoscosta/Desktop/Hackathon 2017/square_face.jpg" style="width:150px; height:150px">
+		<h2>Don't waste time </br> Add Stuff!</h2> -->
+	</div>
+
 	<form id="courseForm" class="form-inline my-2 my-lg-0" action="http://localhost:8080/data" method="POST">
-      	<ol>
-      	<li>
-      	<input name="prefix" class="form-control mr-sm-2" type="text" placeholder="Course Prefix (e.g.'BUAD')" aria-label="Course Prefix">
-      	<input name="section" class="form-control mr-sm-2" type="text" placeholder="Section (e.g.'13474')" aria-label="Course Section">
-      	</li>
-      	</ol>
-      	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <ol>
+        <li>
+        <input name="prefix" class="form-control mr-sm-2" type="text" placeholder="Course Prefix (e.g.'BUAD')" aria-label="Course Prefix">
+        <input name="section" class="form-control mr-sm-2" type="text" placeholder="Section (e.g.'13474')" aria-label="Course Section">
+        </li>
+        </ol>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
     <!-- the result of the search will be rendered inside this div -->
-	<div id="result"></div>
- 	
+  	<div id="result"></div>
+
+  <!-- The Modal -->
+  <div id="notiMod" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="button-notification">
+          <button disabled class="js-push-btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            Enable Push Messaging
+          </button>
+      </div>
+    </div>
+
+  </div>
+
+	<!-- Footer -->
+	<footer id="footer-division">
+		<div class="row">
+
+			<div class="col">
+				<nav>
+					<ul>
+						<li><b>Logo</b></li>
+						<li><div id="div-line"></div></li>
+						<li>Our mission is to save your time. Time is money, success, and life. We are saving you that. xoxo</li>
+					</ul>
+				</nav>
+			</div>
+
+			<div class="col">
+				<nav>	
+					<ul>	
+						<li><b>Career Resources</b></li>
+						<li>USC Main website: <a href="https://www.usc.edu/">https://www.usc.edu/</a></li>
+						<li>USC VARC: <a href="http://viterbiundergrad.usc.edu/varc/">http://viterbiundergrad.usc.edu/varc/</a></li>
+						<li>USC ViterbiSE: <a href="https://viterbischool.usc.edu/">https://viterbischool.usc.edu/</a></li>
+					</ul>
+				</nav>
+			</div>
+
+			<div class="col">
+				<nav>	
+					<ul>	
+						<li><b>Health Centers</b></li>
+						<li>USC Gerontology: <a href="http://gero.usc.edu/">http://gero.usc.edu/</a></li>
+						<li>USC Marshall: <a href="https://www.marshall.usc.edu/">https://www.marshall.usc.edu/</a></li>
+						<li>USC Thorton: <a href="https://music.usc.edu/">https://music.usc.edu/</a></li>
+					</ul>
+				</nav>
+			</div>
+
+			<div class="col">
+				<nav>	
+					<ul>	
+						<li><b>Events</b></li>
+						<li>USC Cinema: <a href="http://cinema.usc.edu/">http://cinema.usc.edu/</a></li>
+						<li>USC Health Center: <a href="https://engemannshc.usc.edu/">https://engemannshc.usc.edu/</a></li>
+						<li>USC Career Center: <a href="https://careers.usc.edu/">https://careers.usc.edu/</a></li>
+					</ul>
+				</nav>
+			</div>
+
+		</div>
+	</footer>
 
 	<!-- Scripts -->
-	<!--
-	<script>
-		var numCourse = $('#numberOfCourses').val();
-		for (var i = 0; i < numCourse; i++) {
-			document.createElement("");
-		}
-	</script>
-	<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-	<script>
-  		// Initialize Firebase
-  		var config = {
-    		apiKey: "AIzaSyAOkSoUOW8ZQLv8ZEzGOTOMAhs35el8A3w",
-    		authDomain: "trojanhacks2017.firebaseapp.com",
-    		databaseURL: "https://trojanhacks2017.firebaseio.com",
-    		projectId: "trojanhacks2017",
-    		storageBucket: "trojanhacks2017.appspot.com",
-    		messagingSenderId: "1058125945353"
-  		};
-  		firebase.initializeApp(config);
-	</script>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-	-->
-	<!--
-	<script>
-		$("#courseForm").on('submit', function() {
-			var courseQuery = $(this),
-				url = courseQuery.attr('action'),
-				type = courseQuery.attr('method'),
-				data = {};
-			
-			courseQuery.find('[name]').each(function(index, value) {
-				var dataField = $(this),
-					name = dataField.attr('name'),
-					value = dataField.val();
-					
-				data[name] = value;			
-			});
-			
-			$.ajax({
-				type: type,
-				url: url,
-				data: data,
-				success: function(response) {
-					document.getElementById("result").innerHTML = response;
-				}
-			});
-			
-			return false;
-		});
 
-		/*
-		function _(id){ return document.getElementById(id); }
-		function submitForm(){
-			_("findCourse").disabled = true;
-			_("status").innerHTML = 'please wait ...';
-			var formdata = new FormData();
-			formdata.append( "prefix", _("prefix").value );
-			formdata.append( "section", _("section").value );
-			var ajax = new XMLHttpRequest();
-			ajax.open( "POST", "http://localhost:8080/data", true );
-			ajax.onreadystatechange = function() {
-				if(ajax.readyState == 4 && ajax.status == 200) {
-					if(ajax.responseText == "success"){
-						_("status").innerHTML = '<h2>Course found!</h2>' + ajax.responseText;
-					} else {
-						_("status").innerHTML = "<h2>Failed...</h2>";
-						_("findCourse").disabled = false;
-					}
-				}
-			}
-			ajax.send(formdata);
-		}
-    	*/
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script>
+    // Get the modal
+    var modal = document.getElementById('notiMod');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("noti");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal 
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+		$(document).ready(function(){
+			$('#sidebar-btn').click(function(){
+				$('#sidebar').toggleClass('visible');
+			})
+		})
 	</script>
-	-->
+
+	<script src= "scripts/main.js"></script>
+	<script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+
 </body>
 </html>
+
+<!-- <div data-tockify-component="calendar" data-tockify-calendar="uscalendar"></div>
+	 <script data-cfasync="false" data-tockify-script="embed" src="https://public.tockify.com/browser/embed.js"></script>-->
