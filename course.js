@@ -6,6 +6,14 @@ var bodyParser = require("body-parser");
 var fs = require("fs");
 var app = express();
 var router = express.Router();
+var admin = require("firebase-admin");
+var serviceAccount = require("path/to/serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://<DATABASE_NAME>.firebaseio.com"
+});
+
 var port = 8080;
 
 app.use(bodyParser.json());
