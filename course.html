@@ -1,194 +1,195 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>USCalendar Dashboard</title>
-	<style>
-		body{
-			margin: 0px; 
-			padding: 0px;
-			background-color: #edeff0;
-			font-family: "hack";
-		}
+  <title>USCalendar Dashboard</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> 
+  <style>
+    body{
+      margin: 0px; 
+      padding: 0px;
+      background-color: #edeff0;
+      font-family: "hack";
+    }
 
-		#sidebar{
-			background: #151718;
-			width: 200px;
-			height: 100%; 
-			display: block;
-			position: absolute;
-			left: -200px;
-			top: 0px;
-			transition: left 0.3s linear;
-			z-index: 2;
-		}
+    #sidebar{
+      background: #151718;
+      width: 200px;
+      height: 100%; 
+      display: block;
+      position: absolute;
+      left: -200px;
+      top: 0px;
+      transition: left 0.3s linear;
+      z-index: 2;
+    }
 
-		#vertical-div{
-			width: 200px;
-			height: 100%;
-			top: 0px;
-			position: absolute;
-			text-align: center;
-			box-shadow: 2px 2px 5px #A5A5A5;
-			z-index: 1;
+    #vertical-div{
+      width: 200px;
+      height: 100%;
+      top: 0px;
+      position: absolute;
+      text-align: center;
+      box-shadow: 2px 2px 5px #A5A5A5;
+      z-index: 1;
       background-color: #990000;
       background: linear-gradient(#990000, #FFCC00);
-		}
+    }
 
-		#vertical-div img{
-			margin-top: 150px;
-			opacity: 0.7;
-		}
+    #vertical-div img{
+      margin-top: 150px;
+      opacity: 0.7;
+    }
 
-		#vertical-div h2{
-			font-size: 18px;
-			padding-right: 20px;
-			padding-left: 20px;
-			margin-top: -20px;
-			color: #b8b8b8;
-			opacity: 0.7;
-		}
+    #vertical-div h2{
+      font-size: 18px;
+      padding-right: 20px;
+      padding-left: 20px;
+      margin-top: -20px;
+      color: #b8b8b8;
+      opacity: 0.7;
+    }
 
-		#node-div{
-			float: right;
-			background-color: #F5F5F5;
-			padding: 30px;
-			width: 80%;
-			height: 100vh;
-			z-index: 0;
-		}
+    #node-div{
+      float: right;
+      background-color: #F5F5F5;
+      padding: 30px;
+      width: 80%;
+      height: 100vh;
+      z-index: 0;
+    }
 
-		.node{
-			background-color: white;
-			color: #94a2a4;
-			border-top: 2px solid #d6d8d8;
-			margin: 10px;
-			margin-right: -2px;
-			margin-left: -2px;
-			padding: 30px;
-			height: 200px;
-		}
+    .node{
+      background-color: white;
+      color: #94a2a4;
+      border-top: 2px solid #d6d8d8;
+      margin: 10px;
+      margin-right: -2px;
+      margin-left: -2px;
+      padding: 30px;
+      height: 200px;
+    }
 
-		#sidebar.visible{
-			left: 0px;
-			transition: left 0.3s linear;
-		}
+    #sidebar.visible{
+      left: 0px;
+      transition: left 0.3s linear;
+    }
 
-		#sidebar-btn{
-			display: inline-block;
-			vertical-align: middle;
-			width: 20px;
-			height: 15px;
-			cursor: pointer;
-			margin: 20px;
-			position: absolute;
-			top: 0px;
-			right: -60px;
-		}
+    #sidebar-btn{
+      display: inline-block;
+      vertical-align: middle;
+      width: 20px;
+      height: 15px;
+      cursor: pointer;
+      margin: 20px;
+      position: absolute;
+      top: 0px;
+      right: -60px;
+    }
 
-		#sidebar-btn span{
-			height: 2px;
-			background-color: #111;
-			margin-bottom: 5px;
-			display: block;
-		}
+    #sidebar-btn span{
+      height: 2px;
+      background-color: #111;
+      margin-bottom: 5px;
+      display: block;
+    }
 
-		#sidebar-btn span:nth-child(1){
-			margin-top: -7px;
-		}
+    #sidebar-btn span:nth-child(1){
+      margin-top: -7px;
+    }
 
-		#sidebar-btn span:nth-child(2){
-			width: 75%;
-		}
+    #sidebar-btn span:nth-child(2){
+      width: 75%;
+    }
 
-		#sidebar-btn span:nth-child(3){
-			width: 50%;
-		}
+    #sidebar-btn span:nth-child(3){
+      width: 50%;
+    }
 
-		#button-notification{
-			position: absolute;
-			left: 50%;
-			top: 50%;
-		}
+    #button-notification{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+    }
 
-		.vertical-menu{
-			margin: 0px;
-			padding: 0px;
-		}
+    .vertical-menu{
+      margin: 0px;
+      padding: 0px;
+    }
 
-		.vertical-menu-item{ 
-			list-style: none;
-		}
+    .vertical-menu-item{ 
+      list-style: none;
+    }
 
-		ul li a.vertical-anchor{
-			background-color: #1C1E1F; 
-			color: #ccc;
-			border-bottom: 1px solid #111;
-			display: block;
-			width: 180px;
-			padding: 10px;
-			text-decoration: none;
-			padding-top: 20px;
-			padding-bottom: 28px;
-			text-align: center;
-		}
+    ul li a.vertical-anchor{
+      background-color: #1C1E1F; 
+      color: #ccc;
+      border-bottom: 1px solid #111;
+      display: block;
+      width: 180px;
+      padding: 10px;
+      text-decoration: none;
+      padding-top: 20px;
+      padding-bottom: 28px;
+      text-align: center;
+    }
 
-		ul li a.vertical-anchor:hover{
-			background-color: #F5F5F5;
-			color: #1C1E1F;
-			transition: 0.3s;
-		}
+    ul li a.vertical-anchor:hover{
+      background-color: #F5F5F5;
+      color: #1C1E1F;
+      transition: 0.3s;
+    }
 
-		#footer-division{
-			width: 100%;
-			height: 150;
-			padding: 10px;
-			position: fixed;
-			display: block;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			color: #8c9aa4;
-			background-color: #edeff0;
-			text-align: center;
-			z-index: 3;
-		}
+    #footer-division{
+      width: 100%;
+      height: 150;
+      padding: 10px;
+      position: fixed;
+      display: block;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      color: #8c9aa4;
+      background-color: #edeff0;
+      text-align: center;
+      z-index: 3;
+    }
 
-		#footer-division li{
-			font-size: 11px;
-			padding: 2px;
-			list-style: none;
-			opacity: 0.9;
-		}
+    #footer-division li{
+      font-size: 11px;
+      padding: 2px;
+      list-style: none;
+      opacity: 0.9;
+    }
 
-		#footer-division li a{
-			color: #757575;
-			text-decoration: none;
-			text-align: center;
-		}
+    #footer-division li a{
+      color: #757575;
+      text-decoration: none;
+      text-align: center;
+    }
 
-		footer h3{
-			float: left;
-			padding-left: 20px;
-			padding-right: 20px;
-		}
+    footer h3{
+      float: left;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
 
-		.row{
-			height: auto;
-			overflow: auto;
-		}
+    .row{
+      height: auto;
+      overflow: auto;
+    }
 
-		.col{
-			float: left;
-			text-align: left;
-			width: 25%;
-		}
+    .col{
+      float: left;
+      text-align: left;
+      width: 25%;
+    }
 
-		#div-line{
-			background-color: #8c9aa4;
-			opacity: 0.5;
-			height: 2px;
-			width: 100%;
-		}
+    #div-line{
+      background-color: #8c9aa4;
+      opacity: 0.5;
+      height: 2px;
+      width: 100%;
+    }
 
     /* The Modal (background) */
     .modal {
@@ -225,35 +226,40 @@
         text-decoration: none;
         cursor: pointer;
     }
-	</style>
+
+    #courseForm {
+      padding-left: 20%;
+      padding-top: 18%;
+    }
+  </style>
 </head>
 <body>
-	<div id="sidebar">
-		<nav>
-			<ul class="vertical-menu">
-				<li class="vertical-menu-item"><a class="vertical-anchor" href="#">Logo</a></li>
-				<li class="vertical-menu-item"><a class="vertical-anchor" href="feed.html">Home</a></li>
-				<li class="vertical-menu-item"><a class="vertical-anchor" href="course.html">Add</a></li>
-				<li class="vertical-menu-item"><a class="vertical-anchor" id="noti" href="#">Notification</a></li>
-				<li class="vertical-menu-item"><a class="vertical-anchor" href="https://www.pexels.com/search/cat/">Cats</a></li>
-				<li class="vertical-menu-item"><a class="vertical-anchor" href="mailto:tlabonte@usc.edu">Contact</a></li>
-				<li class="vertical-menu-item"><a class="vertical-anchor" href="#">About</a></li>
-			</ul>
-		</nav>
-		<div id="sidebar-btn">
-			<span></span>
-			<span></span>
-			<span></span>
-		</div>
-	</div>
+  <div id="sidebar">
+    <nav>
+      <ul class="vertical-menu">
+        <li class="vertical-menu-item"><a class="vertical-anchor" href="#">Logo</a></li>
+        <li class="vertical-menu-item"><a class="vertical-anchor" href="feed.html">Home</a></li>
+        <li class="vertical-menu-item"><a class="vertical-anchor" href="course.html">Add</a></li>
+        <li class="vertical-menu-item"><a class="vertical-anchor" id="noti" href="#">Notification</a></li>
+        <li class="vertical-menu-item"><a class="vertical-anchor" href="https://www.pexels.com/search/cat/">Cats</a></li>
+        <li class="vertical-menu-item"><a class="vertical-anchor" href="mailto:tlabonte@usc.edu">Contact</a></li>
+        <li class="vertical-menu-item"><a class="vertical-anchor" href="#">About</a></li>
+      </ul>
+    </nav>
+    <div id="sidebar-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
 
-	<!-- Vertical div behind the sliding menu -->
-	<div id="vertical-div">
-<!-- 		<img src="/Users/mauriciofigueiredomattoscosta/Desktop/Hackathon 2017/square_face.jpg" style="width:150px; height:150px">
-		<h2>Don't waste time </br> Add Stuff!</h2> -->
-	</div>
+  <!-- Vertical div behind the sliding menu -->
+  <div id="vertical-div">
+<!--    <img src="/Users/mauriciofigueiredomattoscosta/Desktop/Hackathon 2017/square_face.jpg" style="width:150px; height:150px">
+    <h2>Don't waste time </br> Add Stuff!</h2> -->
+  </div>
 
-	<form id="courseForm" class="form-inline my-2 my-lg-0" action="http://localhost:8080/data" method="POST">
+  <form id="courseForm" class="form-inline my-2 my-lg-0" action="http://localhost:8080/data" method="POST">
         <ol>
         <li>
         <input name="prefix" class="form-control mr-sm-2" type="text" placeholder="Course Prefix (e.g.'BUAD')" aria-label="Course Prefix">
@@ -263,7 +269,7 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
     <!-- the result of the search will be rendered inside this div -->
-  	<div id="result"></div>
+    <div id="result"></div>
 
   <!-- The Modal -->
   <div id="notiMod" class="modal">
@@ -280,60 +286,60 @@
 
   </div>
 
-	<!-- Footer -->
-	<footer id="footer-division">
-		<div class="row">
+  <!-- Footer -->
+  <footer id="footer-division">
+    <div class="row">
 
-			<div class="col">
-				<nav>
-					<ul>
-						<li><b>Logo</b></li>
-						<li><div id="div-line"></div></li>
-						<li>Our mission is to save your time. Time is money, success, and life. We are saving you that. xoxo</li>
-					</ul>
-				</nav>
-			</div>
+      <div class="col">
+        <nav>
+          <ul>
+            <li><b>Logo</b></li>
+            <li><div id="div-line"></div></li>
+            <li>Our mission is to save your time. Time is money, success, and life. We are saving you that. xoxo</li>
+          </ul>
+        </nav>
+      </div>
 
-			<div class="col">
-				<nav>	
-					<ul>	
-						<li><b>Career Resources</b></li>
-						<li>USC Main website: <a href="https://www.usc.edu/">https://www.usc.edu/</a></li>
-						<li>USC VARC: <a href="http://viterbiundergrad.usc.edu/varc/">http://viterbiundergrad.usc.edu/varc/</a></li>
-						<li>USC ViterbiSE: <a href="https://viterbischool.usc.edu/">https://viterbischool.usc.edu/</a></li>
-					</ul>
-				</nav>
-			</div>
+      <div class="col">
+        <nav> 
+          <ul>  
+            <li><b>Career Resources</b></li>
+            <li>USC Main website: <a href="https://www.usc.edu/">https://www.usc.edu/</a></li>
+            <li>USC VARC: <a href="http://viterbiundergrad.usc.edu/varc/">http://viterbiundergrad.usc.edu/varc/</a></li>
+            <li>USC ViterbiSE: <a href="https://viterbischool.usc.edu/">https://viterbischool.usc.edu/</a></li>
+          </ul>
+        </nav>
+      </div>
 
-			<div class="col">
-				<nav>	
-					<ul>	
-						<li><b>Health Centers</b></li>
-						<li>USC Gerontology: <a href="http://gero.usc.edu/">http://gero.usc.edu/</a></li>
-						<li>USC Marshall: <a href="https://www.marshall.usc.edu/">https://www.marshall.usc.edu/</a></li>
-						<li>USC Thorton: <a href="https://music.usc.edu/">https://music.usc.edu/</a></li>
-					</ul>
-				</nav>
-			</div>
+      <div class="col">
+        <nav> 
+          <ul>  
+            <li><b>Health Centers</b></li>
+            <li>USC Gerontology: <a href="http://gero.usc.edu/">http://gero.usc.edu/</a></li>
+            <li>USC Marshall: <a href="https://www.marshall.usc.edu/">https://www.marshall.usc.edu/</a></li>
+            <li>USC Thorton: <a href="https://music.usc.edu/">https://music.usc.edu/</a></li>
+          </ul>
+        </nav>
+      </div>
 
-			<div class="col">
-				<nav>	
-					<ul>	
-						<li><b>Events</b></li>
-						<li>USC Cinema: <a href="http://cinema.usc.edu/">http://cinema.usc.edu/</a></li>
-						<li>USC Health Center: <a href="https://engemannshc.usc.edu/">https://engemannshc.usc.edu/</a></li>
-						<li>USC Career Center: <a href="https://careers.usc.edu/">https://careers.usc.edu/</a></li>
-					</ul>
-				</nav>
-			</div>
+      <div class="col">
+        <nav> 
+          <ul>  
+            <li><b>Events</b></li>
+            <li>USC Cinema: <a href="http://cinema.usc.edu/">http://cinema.usc.edu/</a></li>
+            <li>USC Health Center: <a href="https://engemannshc.usc.edu/">https://engemannshc.usc.edu/</a></li>
+            <li>USC Career Center: <a href="https://careers.usc.edu/">https://careers.usc.edu/</a></li>
+          </ul>
+        </nav>
+      </div>
 
-		</div>
-	</footer>
+    </div>
+  </footer>
 
-	<!-- Scripts -->
+  <!-- Scripts -->
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script>
     // Get the modal
     var modal = document.getElementById('notiMod');
 
@@ -360,18 +366,15 @@
         }
     }
 
-		$(document).ready(function(){
-			$('#sidebar-btn').click(function(){
-				$('#sidebar').toggleClass('visible');
-			})
-		})
-	</script>
+    $(document).ready(function(){
+      $('#sidebar-btn').click(function(){
+        $('#sidebar').toggleClass('visible');
+      })
+    })
+  </script>
 
-	<script src= "scripts/main.js"></script>
-	<script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+  <script src= "scripts/main.js"></script>
+  <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 
 </body>
 </html>
-
-<!-- <div data-tockify-component="calendar" data-tockify-calendar="uscalendar"></div>
-	 <script data-cfasync="false" data-tockify-script="embed" src="https://public.tockify.com/browser/embed.js"></script>-->
